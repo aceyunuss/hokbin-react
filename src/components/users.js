@@ -11,7 +11,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Avatar from "@material-ui/core/Avatar";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { Link } from "react-router-dom";
 
@@ -57,21 +56,16 @@ export default function UserList() {
   };
 
   const UserDelete = (id) => {
-    var data = {
-      id: id,
-    };
-    fetch("https://www.mecallapi.com/api/users/delete", {
+    fetch("http://localhost:3000/api/user/" + id, {
       method: "DELETE",
       headers: {
-        Accept: "application/form-data",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((result) => {
-        alert(result["message"]);
-        if (result["status"] === "ok") {
+        alert(result.message);
+        if (result.status_code === 200) {
           UsersGet();
         }
       });
